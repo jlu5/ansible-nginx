@@ -1,0 +1,27 @@
+- name: Install nginx
+  apt:
+    package: nginx
+    state: present
+  become: yes
+
+- name: Fetch DH params (ffdhe2048.txt) from Mozilla
+  get_url:
+    url: https://ssl-config.mozilla.org/ffdhe2048.txt
+    dest: /etc/nginx/dhparams.pem
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Template nginx snippets
+  template:
+    src: "{{ item }}"
+    dest: "/etc/nginx/snippets/{{ item | basename | regex_replace('\\.j2$', '')}}"
+    mode: '0644'
+  with_fileglob:
+    - "{{ role_path }}/snippets/*.j2"
+
+- name: "Fetch letsencrypt certificate"
+  include_tasks: fetch-ssl-cert.yml
+  when: (letsencrypt_domains | default([])) | length
+
+- name: "Upload nginx site configuration"
+  include_tasks: configure-site.yml
+  when: nginx_site is defined and nginx_site is not none

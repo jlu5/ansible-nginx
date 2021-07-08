@@ -1,0 +1,14 @@
+- name: "Upload nginx config to /etc/nginx/sites-available"
+  template:
+    src: "{{ nginx_site.src }}"
+    dest: "/etc/nginx/sites-available/{{ nginx_site.dst }}"
+  notify:
+    - reload nginx
+
+- name: "Link nginx config to /etc/nginx/sites-enabled"
+  file:
+    src: "/etc/nginx/sites-available/{{ nginx_site.dst }}"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_site.dst }}"
+    state: link
+  notify:
+    - reload nginx

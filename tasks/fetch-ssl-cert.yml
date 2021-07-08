@@ -1,0 +1,14 @@
+- name: Setup Let's Encrypt certificate
+  include_role:
+    name: systemli.letsencrypt  # From https://github.com/systemli/ansible-role-letsencrypt
+  vars:
+    letsencrypt_cert:
+      name: "{{ letsencrypt_domains[0] }}"
+      domains: "{{ letsencrypt_domains }}"
+      challenge: http
+      http_auth: webroot
+      webroot_path: "{{ letsencrypt_webroot_path }}"
+      letsencrypt_account_email: "{{ letsencrypt_account_email | mandatory }}"
+      services:
+        - nginx
+  ignore_errors: "{{ ansible_check_mode }}"

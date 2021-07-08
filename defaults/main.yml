@@ -1,0 +1,11 @@
+# Site to configure. src is the source template file, dst is the name to upload it as under /etc/nginx/sites-available
+nginx_site:
+#  src: srcfile.conf.j2
+#  dst: srcfile.conf
+
+# If non-empty, attempts to create an SSL certificate for the given domains using certbot's webroot validation
+letsencrypt_domains: []
+
+# webroot path for certbot validation
+letsencrypt_webroot_path: /var/www/html
+#letsencrypt_account_email: your@email
