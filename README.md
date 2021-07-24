@@ -7,7 +7,7 @@ I also attempt to keep this role up to date with [Mozilla's SSL Config Generator
 ## Variables
 
 ```yaml
-# Site to configure. src is the source template file of an nginx `server{}` directive (usually from the current role), dst is the name to upload it as under /etc/nginx/sites-available
+# Site to configure. src is the source template file of an nginx `server{}` directive (usually from the including role), dst is the name to upload it as under /etc/nginx/sites-available
 nginx_site:
   src: srcfile.conf.j2
   dst: srcfile.conf
