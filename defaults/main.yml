@@ -3,6 +3,9 @@ nginx_site:
 #  src: srcfile.conf.j2
 #  dst: srcfile.conf
 
+# Whether to force replace the existing config file, if it exists
+nginx_replace_config: true
+
 # If non-empty, attempts to create an SSL certificate for the given domains using certbot's webroot validation
 letsencrypt_domains: []
 

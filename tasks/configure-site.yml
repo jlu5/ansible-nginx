@@ -2,6 +2,7 @@
   template:
     src: "{{ nginx_site.src }}"
     dest: "/etc/nginx/sites-available/{{ nginx_site.dst }}"
+    force: "{{ nginx_replace_config }}"
   notify:
     - reload nginx
 
