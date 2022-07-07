@@ -12,11 +12,13 @@
 
 - name: Template nginx snippets
   template:
-    src: "{{ item }}"
-    dest: "/etc/nginx/snippets/{{ item | basename | regex_replace('\\.j2$', '')}}"
+    src: "{{ snippet }}"
+    dest: "/etc/nginx/snippets/{{ snippet | basename | regex_replace('\\.j2$', '')}}"
     mode: '0644'
   with_fileglob:
     - "{{ role_path }}/snippets/*.j2"
+  loop_control:
+    loop_var: snippet
 
 - name: "Fetch letsencrypt certificate"
   include_tasks: fetch-ssl-cert.yml
