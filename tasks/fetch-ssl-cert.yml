@@ -8,8 +8,7 @@
       challenge: http
       http_auth: webroot
       webroot_path: "{{ letsencrypt_webroot_path }}"
-      letsencrypt_account_email: "{{ letsencrypt_account_email | mandatory }}"
       services:
         - nginx
-      letsencrypt_dns_challenge: false
+    letsencrypt_dns_challenge: false
   ignore_errors: "{{ ansible_check_mode }}"
