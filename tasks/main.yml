@@ -22,7 +22,7 @@
 
 - name: "Fetch letsencrypt certificate"
   include_tasks: fetch-ssl-cert.yml
-  when: (letsencrypt_domains | default([])) | length
+  when: (letsencrypt_domains | default([])) | length > 0
 
 - name: "Upload nginx site configuration"
   include_tasks: configure-site.yml
